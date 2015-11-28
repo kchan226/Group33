@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PlantListActivity"
+            android:label="@string/title_activity_plant_list"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".AddPlantActivity"
+            android:label="@string/title_activity_add_plant"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".EditPlantActivity"
+            android:label="@string/title_activity_edit_plant"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".DeletePlantActivity"
+            android:label="@string/title_activity_delete_plant"
+            android:theme="@android:style/Theme.NoTitleBar"/>
     </application>
 
 </manifest>

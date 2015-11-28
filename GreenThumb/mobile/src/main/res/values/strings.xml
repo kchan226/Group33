@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_plant_list">PlantListActivity</string>
+    <string name="title_activity_add_plant">AddPlantActivity</string>
+    <string name="title_activity_edit_plant">EditPlantActivity</string>
+    <string name="title_activity_delete_plant">DeletePlantActivity</string>
 </resources>
