@@ -1,16 +1,23 @@
 package com.group33.greenthumb;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 public class HomeScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home_screen);
+
+        ImageView img = (ImageView) findViewById(R.id.imageView);
+        Drawable myDrawable = getDrawable(R.drawable.img1);
+        img.setImageDrawable(myDrawable);
     }
 
     @Override
