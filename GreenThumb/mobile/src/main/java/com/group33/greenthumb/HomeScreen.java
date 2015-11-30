@@ -1,10 +1,13 @@
 package com.group33.greenthumb;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class HomeScreen extends Activity {
@@ -18,6 +21,16 @@ public class HomeScreen extends Activity {
         ImageView img = (ImageView) findViewById(R.id.imageView);
         Drawable myDrawable = getDrawable(R.drawable.img1);
         img.setImageDrawable(myDrawable);
+
+        Button clickButton = (Button) findViewById(R.id.plant_button);
+        clickButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(HomeScreen.this, PlantListActivity.class);
+                HomeScreen.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override
