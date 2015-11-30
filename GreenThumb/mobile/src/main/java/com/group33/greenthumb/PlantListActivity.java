@@ -57,6 +57,7 @@ public class PlantListActivity extends Activity implements
     @Override
     public void onLongPress(MotionEvent event) {
         Log.d(DEBUG_TAG, "onLongPress: " + event.toString());
+        finish(); // return to home screen
     }
 
     @Override
