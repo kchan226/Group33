@@ -9,6 +9,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class PlantListActivity extends Activity implements
         GestureDetector.OnGestureListener,
@@ -33,6 +34,27 @@ public class PlantListActivity extends Activity implements
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+                Boolean exists = data.getBooleanExtra("exists", true);
+                TextView v = (TextView) findViewById(R.id.plantTextView);
+                if (exists) {
+                    v.setText("1. rose");
+                } else {
+                    v.setText("");
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event){
         this.mDetector.onTouchEvent(event);
         // Be sure to call the superclass implementation
@@ -50,7 +72,7 @@ public class PlantListActivity extends Activity implements
                            float velocityX, float velocityY) {
         Log.d(DEBUG_TAG, "onFling: " + event1.toString()+event2.toString());
         Intent i = new Intent(this, DeletePlantActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
         return true;
     }
 
@@ -96,7 +118,7 @@ public class PlantListActivity extends Activity implements
     public boolean onSingleTapConfirmed(MotionEvent event) {
         Log.d(DEBUG_TAG, "onSingleTapConfirmed: " + event.toString());
         Intent i = new Intent(this, AddPlantActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
         return true;
     }
 
