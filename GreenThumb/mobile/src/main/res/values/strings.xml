@@ -7,4 +7,8 @@
     <string name="title_activity_add_plant">AddPlantActivity</string>
     <string name="title_activity_edit_plant">EditPlantActivity</string>
     <string name="title_activity_delete_plant">DeletePlantActivity</string>
+    <string name="title_activity_task_list">TaskListActivity</string>
+    <string name="title_activity_add_task">AddTaskActivity</string>
+    <string name="title_activity_delete_task">DeleteTaskActivity</string>
+    <string name="title_activity_edit_task">EditTaskActivity</string>
 </resources>
