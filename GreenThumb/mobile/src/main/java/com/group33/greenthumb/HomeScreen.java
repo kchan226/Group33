@@ -49,6 +49,15 @@ public class HomeScreen extends Activity {
                 .addApi(Wearable.API)
                 .build();
 
+        Button taskButton = (Button) findViewById(R.id.task_button);
+        taskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(HomeScreen.this, TaskListActivity.class);
+                HomeScreen.this.startActivity(myIntent);
+            }
+        });
+
         Button clickButton = (Button) findViewById(R.id.plant_button);
         clickButton.setOnClickListener(new View.OnClickListener() {
 
