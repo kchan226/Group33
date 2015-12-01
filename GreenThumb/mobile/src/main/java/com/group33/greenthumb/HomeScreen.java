@@ -60,7 +60,7 @@ public class HomeScreen extends Activity {
         });
 
         Button wearButton = (Button) findViewById(R.id.wear);
-        clickButton.setOnClickListener(new View.OnClickListener() {
+        wearButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
