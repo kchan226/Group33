@@ -10,7 +10,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.Wearable;
+
 public class HomeScreen extends Activity {
+
+    private GoogleApiClient mApiClient;
+    private static final String START_ACTIVITY = "/start_activity";
+
+    private void sendMessage( final String path, final String text ) {
+        new Thread( new Runnable() {
+            @Override
+            public void run() {
+                NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes( mApiClient ).await();
+                for(Node node : nodes.getNodes()) {
+                    MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(
+                            mApiClient, node.getId(), path, text.getBytes() ).await();
+                }
+
+            }
+        }).start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +45,10 @@ public class HomeScreen extends Activity {
         Drawable myDrawable = getDrawable(R.drawable.img1);
         img.setImageDrawable(myDrawable);
 
+        mApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .addApi(Wearable.API)
+                .build();
+
         Button clickButton = (Button) findViewById(R.id.plant_button);
         clickButton.setOnClickListener(new View.OnClickListener() {
 
@@ -29,6 +56,17 @@ public class HomeScreen extends Activity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(HomeScreen.this, PlantListActivity.class);
                 HomeScreen.this.startActivity(myIntent);
+            }
+        });
+
+        Button wearButton = (Button) findViewById(R.id.wear);
+        clickButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mApiClient.connect();
+                sendMessage(START_ACTIVITY, "here");
+
             }
         });
     }
