@@ -31,6 +31,12 @@ public class PlantListActivity extends Activity implements
         // Set the gesture detector as the double tap
         // listener.
         mDetector.setOnDoubleTapListener(this);
+
+        Plant p = Plant.getPlant("rose");
+        if (p != null) {
+            TextView v = (TextView)findViewById(R.id.plantTextView);
+            v.setText("1. rose");
+        }
     }
 
     @Override
