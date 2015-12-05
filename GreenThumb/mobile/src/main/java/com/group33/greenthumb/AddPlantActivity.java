@@ -30,20 +30,15 @@ public class AddPlantActivity extends Activity {
                 EditText mCompost = (EditText) findViewById(R.id.compost);
                 String inputCompost = mCompost.getText().toString();
 
-                Integer water;
-                Integer compost;
+                Integer water = 0;
+                Integer compost = 0;
 
                 if (inputName.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please input a plant name", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (inputWater.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please input watering frequency", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (inputCompost.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please input composting frequency", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
+                } else if (!inputWater.isEmpty()) {
                     water = numberDays(Integer.parseInt(inputWater), waterSpinner.getSelectedItem().toString());
+                } else if (!inputCompost.isEmpty()) {
                     compost = numberDays(Integer.parseInt(inputCompost), compostSpinner.getSelectedItem().toString());
                 }
 

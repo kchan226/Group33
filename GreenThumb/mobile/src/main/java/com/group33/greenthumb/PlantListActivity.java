@@ -1,11 +1,15 @@
 package com.group33.greenthumb;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,6 +62,44 @@ public class PlantListActivity extends ListActivity implements
             }
         });
 
+        registerForContextMenu(getListView());
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.plant_actions, menu);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final String plantName = plantItems.get(info.position);
+        final int index = info.position;
+        Intent i;
+        switch(item.getItemId()){
+            case R.id.edit:
+                i = new Intent(PlantListActivity.this, EditPlantActivity.class);
+                i.putExtra("name", plantName);
+                startActivity(i);
+                break;
+            case R.id.delete:
+                new AlertDialog.Builder(this)
+                        .setMessage("Are you sure you want to delete " + plantName + "?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Plant plant = Plant.getPlant(plantName);
+                                plant.delete();
+                                plantItems.remove(index);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                break;
+        }
+        return true;
     }
 
     //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
@@ -108,15 +150,12 @@ public class PlantListActivity extends ListActivity implements
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
         Log.d(DEBUG_TAG, "onFling: " + event1.toString()+event2.toString());
-        Intent i = new Intent(this, DeletePlantActivity.class);
-        startActivityForResult(i, 1);
         return true;
     }
 
     @Override
     public void onLongPress(MotionEvent event) {
         Log.d(DEBUG_TAG, "onLongPress: " + event.toString());
-        finish(); // return to home screen
     }
 
     @Override
@@ -140,8 +179,6 @@ public class PlantListActivity extends ListActivity implements
     @Override
     public boolean onDoubleTap(MotionEvent event) {
         Log.d(DEBUG_TAG, "onDoubleTap: " + event.toString());
-        Intent i = new Intent(this, EditPlantActivity.class);
-        startActivity(i);
         return true;
     }
 
