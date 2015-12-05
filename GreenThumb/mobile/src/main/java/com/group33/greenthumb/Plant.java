@@ -6,7 +6,9 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Table(name = "Plants")
 public class Plant extends Model {
@@ -15,22 +17,27 @@ public class Plant extends Model {
     @Column(name = "Name")
     public String name;
 
-    // water every _____ days
     @Column(name = "WaterFrequency")
     public Integer waterFrequency;
 
-    @Column(name = "LastWatered")
-    public Calendar lastWatered;
+    @Column(name = "CompostFrequency")
+    public Integer compostFrequency;
+
+    @Column(name = "TaskLastDone")
+    public Map taskLastDone;
 
     public Plant(){
         super();
     }
 
-    public Plant(String name, Integer waterFrequency) {
+    public Plant(String name, Integer waterFrequency, Integer compostFrequency) {
         super();
         this.name = name;
         this.waterFrequency = waterFrequency;
-        this.lastWatered = Calendar.getInstance();
+        this.compostFrequency = compostFrequency;
+        this.taskLastDone = new HashMap<>();
+        this.taskLastDone.put("water", Calendar.getInstance());
+        this.taskLastDone.put("compost", Calendar.getInstance());
     }
 
     public static Plant getPlant(String name) {

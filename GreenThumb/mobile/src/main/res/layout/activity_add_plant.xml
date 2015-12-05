@@ -3,60 +3,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.group33.greenthumb.AddPlantActivity">
+    tools:context="com.group33.greenthumb.AddPlantActivity"
+    android:weightSum="1">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <ImageButton
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imageButton"
-        android:src="@drawable/addplant"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="New Plant"
+        android:id="@+id/addplant"
+        android:textSize="30sp"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/plantName"
+        android:hint="Name"/>
 
     <TextView
-        android:id="@+id/myImageViewText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignTop="@+id/imageButton"
-        android:layout_alignRight="@+id/imageButton"
-        android:gravity="center"
-        android:text="Add Plant View"
-        android:textSize="70sp"
-        android:textColor="#000000"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginTop="1dp" />
-
-    <TextView
-        android:id="@+id/plantTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Plant added"
-        android:textSize="55sp"
-        android:textColor="#000000"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/myImageViewText"
-        android:typeface="serif"
-        android:layout_above="@+id/waterTextView" />
-
-    <TextView
-        android:id="@+id/waterTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
-        android:textSize="40sp"
-        android:textColor="#000000"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:typeface="serif"
+        android:id="@+id/taskLabel"
+        android:textSize="20sp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Water every"
+            android:textSize="25sp"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/water"
+            android:maxLength="4"
+            android:layout_weight="0.2"/>
+
+        <Spinner
+            android:id="@+id/water_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:entries="@array/time_array" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Compost every"
+            android:textSize="25sp"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/compost"
+            android:maxLength="4"
+            android:layout_weight="0.2"/>
+
+        <Spinner
+            android:id="@+id/compost_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:entries="@array/time_array" />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/saveButton"
+        android:layout_gravity="center_horizontal|bottom"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:paddingBottom="10sp"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -8,6 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data android:name="AA_SERIALIZERS" android:value="my.package.UtilMapSerializer" />
         <activity
             android:name=".HomeScreen"
             android:label="@string/app_name" >

@@ -3,44 +3,76 @@ package com.group33.greenthumb;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-public class AddPlantActivity extends Activity implements View.OnTouchListener{
-
-    public Plant demoPlant;
+public class AddPlantActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plant);
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        m.setOnTouchListener(this);
 
-        // TODO: remove post-PROG03
-        TextView v = (TextView)findViewById(R.id.plantTextView);
-        TextView w = (TextView)findViewById(R.id.waterTextView);
-        String plant = "rose";
-        demoPlant = Plant.getPlant(plant);
-        if (demoPlant == null) {
-            demoPlant = new Plant(plant, 2);
-            demoPlant.save();
-            v.setText("Plant Added: " + plant);
-            w.setText("Watering set to every 2 days");
-        } else {
-            v.setText("rose already added");
-        }
+        final Spinner waterSpinner = (Spinner) findViewById(R.id.water_spinner);
+        final Spinner compostSpinner = (Spinner) findViewById(R.id.compost_spinner);
+
+        Button saveButton = (Button)findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText mName = (EditText) findViewById(R.id.plantName);
+                String inputName = mName.getText().toString().trim();
+                EditText mWater = (EditText) findViewById(R.id.water);
+                String inputWater = mWater.getText().toString();
+                EditText mCompost = (EditText) findViewById(R.id.compost);
+                String inputCompost = mCompost.getText().toString();
+
+                Integer water;
+                Integer compost;
+
+                if (inputName.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please input a plant name", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (inputWater.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please input watering frequency", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (inputCompost.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please input composting frequency", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    water = numberDays(Integer.parseInt(inputWater), waterSpinner.getSelectedItem().toString());
+                    compost = numberDays(Integer.parseInt(inputCompost), compostSpinner.getSelectedItem().toString());
+                }
+
+                Plant tempPlant = Plant.getPlant(inputName);
+                //don't add a new plant if already exists
+                if (tempPlant == null) {
+                    Plant newPlant = new Plant(inputName, water, compost);
+                    newPlant.save();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Plant with this name already exists in your list", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        Intent i = new Intent();
-        i.putExtra("exists", true);
-        setResult(RESULT_OK, i);
-        finish();
-        return false;
+    public Integer numberDays(Integer value, String unit) {
+        switch (unit) {
+            case "Days":
+                return value;
+            case "Months":
+                return value * 30;
+            case "Years":
+                return value * 365;
+            default:
+                return -1;
+        }
     }
 }
