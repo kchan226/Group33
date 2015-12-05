@@ -9,12 +9,19 @@ import android.widget.TextView;
 
 public class EditPlantActivity extends Activity implements View.OnTouchListener{
 
+    String plantName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_plant);
         ImageButton m = (ImageButton) findViewById(R.id.imageButton);
         m.setOnTouchListener(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            plantName = extras.getString("name");
+        }
 
         // TODO: remove post-PROG03
         Plant p = Plant.getPlant("rose");
@@ -23,7 +30,7 @@ public class EditPlantActivity extends Activity implements View.OnTouchListener{
             p.save();
 
             TextView t = (TextView)findViewById(R.id.plantTextView);
-            t.setText("rose: watering changed to every 4 days");
+            t.setText(plantName + ": watering changed to every 4 days");
         }
     }
 

@@ -1,6 +1,6 @@
 package com.group33.greenthumb;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
@@ -8,15 +8,27 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class PlantListActivity extends Activity implements
+import java.util.ArrayList;
+import java.util.List;
+
+public class PlantListActivity extends ListActivity implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener, View.OnTouchListener {
 
     String DEBUG_TAG = "Plant List";
     private GestureDetectorCompat mDetector;
+
+    ArrayList<String> plantItems = new ArrayList<>();
+
+
+    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +37,33 @@ public class PlantListActivity extends Activity implements
         // Instantiate the gesture detector with the
         // application context and an implementation of
         // GestureDetector.OnGestureListener
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        m.setOnTouchListener(this);
         mDetector = new GestureDetectorCompat(this,this);
         // Set the gesture detector as the double tap
         // listener.
         mDetector.setOnDoubleTapListener(this);
 
-        Plant p = Plant.getPlant("rose");
-        if (p != null) {
-            TextView v = (TextView)findViewById(R.id.plantTextView);
-            v.setText("1. rose");
-        }
+        adapter = new ArrayAdapter<String>(this, R.layout.plant_listview, plantItems);
+        setListAdapter(adapter);
+        updatePlantList();
+
+        ListView listView = getListView();
+        listView.setTextFilterEnabled(true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent i = new Intent(PlantListActivity.this, EditPlantActivity.class);
+                i.putExtra("name", ((TextView) view).getText().toString());
+                startActivity(i);
+            }
+        });
+
+    }
+
+    //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
+    public void addItems(View v) {
+        Intent i = new Intent(this, AddPlantActivity.class);
+        startActivityForResult(i, 1);
     }
 
     @Override
@@ -49,15 +76,19 @@ public class PlantListActivity extends Activity implements
                 // The Intent's data Uri identifies which contact was selected.
 
                 // Do something with the contact here (bigger example below)
-                Boolean exists = data.getBooleanExtra("exists", true);
-                TextView v = (TextView) findViewById(R.id.plantTextView);
-                if (exists) {
-                    v.setText("1. rose");
-                } else {
-                    v.setText("");
-                }
+                updatePlantList();
             }
         }
+    }
+
+    protected void updatePlantList() {
+        plantItems.clear();
+        List<Plant> allPlants = Plant.getAllPlants();
+        int size = allPlants.size();
+        for (int i = 0; i < size; i++) {
+            plantItems.add(allPlants.get(i).name);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Table(name = "Plants")
 public class Plant extends Model {
@@ -37,5 +38,12 @@ public class Plant extends Model {
                 .from(Plant.class)
                 .where("Name = ?", name)
                 .executeSingle();
+    }
+
+    public static List<Plant> getAllPlants() {
+        return new Select(new String[]{"Id, Name"})
+                .from(Plant.class)
+                .orderBy("Name DESC")
+                .execute();
     }
 }
