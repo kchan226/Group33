@@ -32,17 +32,7 @@ public class TaskListActivity extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(TaskListActivity.this, DeleteTaskActivity.class);
-                TaskListActivity.this.startActivity(myIntent);
-            }
-        });
 
-        Button editButton = (Button) findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(TaskListActivity.this, EditTaskActivity.class);
-                TaskListActivity.this.startActivity(myIntent);
             }
         });
 
@@ -59,9 +49,8 @@ public class TaskListActivity extends Activity {
 
         taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TaskListActivity.this, EditTaskActivity.class);
-                intent.putExtra("task", tasks[position]);
-                startActivity(intent);
+
+
             }
         });
         */
