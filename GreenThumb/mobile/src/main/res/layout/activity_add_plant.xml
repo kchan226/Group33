@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="New Plant"
-        android:id="@+id/addplant"
+        android:id="@+id/addPlant"
         android:textSize="30sp"
         android:gravity="center"/>
 

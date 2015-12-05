@@ -56,9 +56,9 @@ public class PlantListActivity extends ListActivity implements
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent i = new Intent(PlantListActivity.this, EditPlantActivity.class);
+                Intent i = new Intent(PlantListActivity.this, AddPlantActivity.class);
                 i.putExtra("name", ((TextView) view).getText().toString());
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -79,9 +79,9 @@ public class PlantListActivity extends ListActivity implements
         Intent i;
         switch(item.getItemId()){
             case R.id.edit:
-                i = new Intent(PlantListActivity.this, EditPlantActivity.class);
+                i = new Intent(PlantListActivity.this, AddPlantActivity.class);
                 i.putExtra("name", plantName);
-                startActivity(i);
+                startActivityForResult(i, 1);
                 break;
             case R.id.delete:
                 new AlertDialog.Builder(this)
@@ -149,7 +149,7 @@ public class PlantListActivity extends ListActivity implements
     @Override
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
-        Log.d(DEBUG_TAG, "onFling: " + event1.toString()+event2.toString());
+        Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
         return true;
     }
 

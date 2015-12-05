@@ -27,10 +27,6 @@
             android:label="@string/title_activity_add_plant"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".EditPlantActivity"
-            android:label="@string/title_activity_edit_plant"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity
             android:name=".TaskListActivity"
             android:label="@string/title_activity_task_list"
             android:theme="@android:style/Theme.NoTitleBar"/>
