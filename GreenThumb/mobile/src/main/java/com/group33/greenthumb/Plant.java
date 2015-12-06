@@ -50,7 +50,7 @@ public class Plant extends Model {
     public static List<Plant> getAllPlants() {
         return new Select(new String[]{"Id, Name"})
                 .from(Plant.class)
-                .orderBy("Name DESC")
+                .orderBy("Name ASC")
                 .execute();
     }
 }

@@ -91,8 +91,9 @@ public class PlantListActivity extends ListActivity implements
                             public void onClick(DialogInterface dialog, int id) {
                                 Plant plant = Plant.getPlant(plantName);
                                 plant.delete();
-                                plantItems.remove(index);
-                                adapter.notifyDataSetChanged();
+//                                plantItems.remove(index);
+//                                adapter.notifyDataSetChanged();
+                                updatePlantList();
                             }
                         })
                         .setNegativeButton("No", null)
@@ -131,6 +132,13 @@ public class PlantListActivity extends ListActivity implements
             plantItems.add(allPlants.get(i).name);
         }
         adapter.notifyDataSetChanged();
+
+        TextView empty = (TextView)findViewById(R.id.empty);
+        if (plantItems.size() == 0) {
+            empty.setVisibility(View.VISIBLE);
+        } else {
+            empty.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -191,8 +199,6 @@ public class PlantListActivity extends ListActivity implements
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
         Log.d(DEBUG_TAG, "onSingleTapConfirmed: " + event.toString());
-        Intent i = new Intent(this, AddPlantActivity.class);
-        startActivityForResult(i, 1);
         return true;
     }
 

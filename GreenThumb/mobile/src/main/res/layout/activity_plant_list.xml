@@ -13,6 +13,16 @@
         android:layout_height="wrap_content"
         android:onClick="addItems"/>
 
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No plants in your list. Let's add some!"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textStyle="italic"
+        android:textSize="15sp"/>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
