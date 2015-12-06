@@ -61,7 +61,7 @@
             android:layout_weight="0.5"
             android:text="Water every"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
         <EditText
             android:layout_width="0dp"
@@ -95,7 +95,7 @@
             android:layout_weight="0.5"
             android:text="Compost every"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
         <EditText
             android:layout_width="0dp"
@@ -129,7 +129,7 @@
             android:layout_weight="0.5"
             android:text="Harvest every"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
         <EditText
             android:layout_width="0dp"
@@ -163,7 +163,7 @@
             android:layout_weight="0.5"
             android:text="Soil pH"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
         <EditText
             android:layout_width="0dp"
@@ -190,7 +190,7 @@
             android:layout_weight="0.5"
             android:text="Sow depth"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
         <EditText
             android:layout_width="0dp"
@@ -208,7 +208,7 @@
             android:layout_weight="0.2"
             android:text="cm"
             android:textSize="25sp"
-            android:gravity="center|left"/>
+            android:gravity="center|start"/>
 
     </LinearLayout>
 
