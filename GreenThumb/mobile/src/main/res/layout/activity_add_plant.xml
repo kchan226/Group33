@@ -31,42 +31,47 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/plantName"
         android:layout_marginTop="10sp"
+        android:singleLine="true"
+        android:maxLength ="2000"
+        android:textSize="30sp"
         android:hint="Name"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:id="@+id/taskLabel"
-        android:textSize="20sp"
-        android:gravity="center"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+        <!--android:text=""-->
+        <!--android:id="@+id/taskLabel"-->
+        <!--android:textSize="20sp"-->
+        <!--android:gravity="center"/>-->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="20sp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:text="Water every"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:gravity="center|left"/>
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:ems="10"
             android:id="@+id/water"
-            android:maxLength="4"
-            android:layout_weight="0.2"/>
+            android:maxLength="5"
+            android:layout_weight="0.2"
+            android:textSize="25sp"/>
 
         <Spinner
             android:id="@+id/water_spinner"
@@ -82,23 +87,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="20sp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:text="Compost every"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:gravity="center|left"/>
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:ems="10"
             android:id="@+id/compost"
-            android:maxLength="4"
-            android:layout_weight="0.2"/>
+            android:maxLength="5"
+            android:layout_weight="0.2"
+            android:textSize="25sp"/>
 
         <Spinner
             android:id="@+id/compost_spinner"
@@ -106,6 +113,102 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:entries="@array/time_array" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Harvest every"
+            android:textSize="25sp"
+            android:gravity="center|left"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/harvest"
+            android:maxLength="5"
+            android:layout_weight="0.2"
+            android:textSize="25sp"/>
+
+        <Spinner
+            android:id="@+id/harvest_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:entries="@array/time_array" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Soil pH"
+            android:textSize="25sp"
+            android:gravity="center|left"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/pH"
+            android:maxLength="5"
+            android:layout_weight="0.2"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Sow depth"
+            android:textSize="25sp"
+            android:gravity="center|left"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/sowDepth"
+            android:maxLength="5"
+            android:layout_weight="0.2"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:text="cm"
+            android:textSize="25sp"
+            android:gravity="center|left"/>
 
     </LinearLayout>
 

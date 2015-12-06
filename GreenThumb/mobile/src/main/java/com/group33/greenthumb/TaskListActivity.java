@@ -69,7 +69,7 @@ public class TaskListActivity extends Activity {
         //TODO: remove post-PROG03
         Plant rose = Plant.getPlant("rose");
         if (rose != null) {
-            Calendar past = (Calendar) rose.taskLastDone.get("water");
+            Calendar past = rose.lastWatered;
             Calendar rightNow = Calendar.getInstance();
             long daysPassed = (past.getTimeInMillis() - rightNow.getTimeInMillis()) / (24 * 60 * 60 * 1000);
 

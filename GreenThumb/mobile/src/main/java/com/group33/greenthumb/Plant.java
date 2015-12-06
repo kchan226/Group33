@@ -6,9 +6,7 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Table(name = "Plants")
 public class Plant extends Model {
@@ -23,21 +21,39 @@ public class Plant extends Model {
     @Column(name = "CompostFrequency")
     public Integer compostFrequency;
 
-    @Column(name = "TaskLastDone")
-    public Map taskLastDone;
+    @Column(name = "HarvestFrequency")
+    public Integer harvestFrequency;
+
+    @Column(name = "LastWatered")
+    public Calendar lastWatered;
+
+    @Column(name = "LastComposted")
+    public Calendar lastComposted;
+
+    @Column(name = "LastHarvested")
+    public Calendar lastHarvested;
+
+    @Column(name = "SoilpH")
+    public double soilpH;
+
+    @Column(name = "SowDepth")
+    public double sowDepth;
 
     public Plant(){
         super();
     }
 
-    public Plant(String name, Integer waterFrequency, Integer compostFrequency) {
+    public Plant(String name, Integer waterFrequency, Integer compostFrequency, Integer harvestFrequency, double soilpH, double sowDepth) {
         super();
         this.name = name;
         this.waterFrequency = waterFrequency;
         this.compostFrequency = compostFrequency;
-        this.taskLastDone = new HashMap<>();
-        this.taskLastDone.put("water", Calendar.getInstance());
-        this.taskLastDone.put("compost", Calendar.getInstance());
+        this.harvestFrequency = harvestFrequency;
+        this.lastWatered = Calendar.getInstance();
+        this.lastComposted = Calendar.getInstance();
+        this.lastHarvested = Calendar.getInstance();
+        this.soilpH = soilpH;
+        this.sowDepth = sowDepth;
     }
 
     public static Plant getPlant(String name) {

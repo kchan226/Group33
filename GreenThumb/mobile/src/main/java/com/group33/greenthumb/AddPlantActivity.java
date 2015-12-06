@@ -63,6 +63,7 @@ public class AddPlantActivity extends AppCompatActivity {
 
         final Spinner waterSpinner = (Spinner) findViewById(R.id.water_spinner);
         final Spinner compostSpinner = (Spinner) findViewById(R.id.compost_spinner);
+        final Spinner harvestSpinner = (Spinner) findViewById(R.id.harvest_spinner);
 
         String toolbarTitle;
         //if we're editing a plant
@@ -96,6 +97,18 @@ public class AddPlantActivity extends AppCompatActivity {
                 TextView compostField = (TextView) findViewById(R.id.compost);
                 compostField.setText(String.format("%d", plant.compostFrequency));
             }
+            if (plant.harvestFrequency > 0) {
+                TextView harvestField = (TextView) findViewById(R.id.harvest);
+                harvestField.setText(String.format("%d", plant.harvestFrequency));
+            }
+            if (plant.soilpH > 0.0) {
+                TextView pHField = (TextView) findViewById(R.id.pH);
+                pHField.setText(String.format("%.1f", plant.soilpH));
+            }
+            if (plant.sowDepth > 0.0) {
+                TextView depthField = (TextView) findViewById(R.id.sowDepth);
+                depthField.setText(String.format("%.1f", plant.sowDepth));
+            }
         }
 
         Button saveButton = (Button)findViewById(R.id.saveButton);
@@ -108,23 +121,44 @@ public class AddPlantActivity extends AppCompatActivity {
                 String inputWater = mWater.getText().toString();
                 EditText mCompost = (EditText) findViewById(R.id.compost);
                 String inputCompost = mCompost.getText().toString();
+                EditText mHarvest = (EditText) findViewById(R.id.harvest);
+                String inputHarvest = mHarvest.getText().toString();
+                EditText mpH = (EditText) findViewById(R.id.pH);
+                String inputpH = mpH.getText().toString();
+                EditText mDepth = (EditText) findViewById(R.id.sowDepth);
+                String inputDepth = mDepth.getText().toString();
+
 
                 Integer water = 0;
                 Integer compost = 0;
+                Integer harvest = 0;
+                double pH = 0.0;
+                double sowDepth = 0.0;
 
                 if (inputName.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please input a plant name", Toast.LENGTH_SHORT).show();
                     return;
-                } if (!inputWater.isEmpty()) {
+                }
+                if (!inputWater.isEmpty()) {
                     water = numberDays(Integer.parseInt(inputWater), waterSpinner.getSelectedItem().toString());
-                } if (!inputCompost.isEmpty()) {
+                }
+                if (!inputCompost.isEmpty()) {
                     compost = numberDays(Integer.parseInt(inputCompost), compostSpinner.getSelectedItem().toString());
+                }
+                if (!inputHarvest.isEmpty()) {
+                    harvest = numberDays(Integer.parseInt(inputCompost), harvestSpinner.getSelectedItem().toString());
+                }
+                if (!inputpH.isEmpty()) {
+                    pH = Double.parseDouble(inputpH);
+                }
+                if (!inputDepth.isEmpty()) {
+                    sowDepth = Double.parseDouble(inputDepth);
                 }
 
                 Plant tempPlant = Plant.getPlant(inputName);
                 //don't add a new plant if already exists
                 if (tempPlant == null && !edit) {
-                    Plant newPlant = new Plant(inputName, water, compost);
+                    Plant newPlant = new Plant(inputName, water, compost, harvest, pH, sowDepth);
                     newPlant.save();
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
@@ -133,6 +167,9 @@ public class AddPlantActivity extends AppCompatActivity {
                     plant.name = inputName;
                     plant.waterFrequency = water;
                     plant.compostFrequency = compost;
+                    plant.harvestFrequency = harvest;
+                    plant.soilpH = pH;
+                    plant.sowDepth = sowDepth;
                     plant.save();
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
