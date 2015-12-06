@@ -20,9 +20,12 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
     private TextView mTextView;
     String DEBUG_TAG = "View Task";
     private GestureDetectorCompat mDetector;
+    private String[] tasksList;
+    private int taskIdx = 0;
+    private boolean taskFinished = false;
     private ViewTasksActivity x  = this;
-    private static final int SWIPE_THRESHOLD = 0;
-    private static final int SWIPE_VELOCITY_THRESHOLD = 0;
+    private static final int SWIPE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +35,24 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                mTextView = (TextView)findViewById(R.id.textView);
+                Intent receivedIntent = getIntent();
+                if (receivedIntent.getBooleanExtra("syncToWear", false)) {
+                    String tasksStr = receivedIntent.getStringExtra("tasks");
+                    tasksList = tasksStr.split("%");
 
-                ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-                m.setOnTouchListener(x);
-                mDetector = new GestureDetectorCompat(x, x);
-                // Set the gesture detector as the double tap
-                // listener.
-                mDetector.setOnDoubleTapListener(x);
+                    mTextView.setText(tasksList[taskIdx]);
+
+
+                    ImageButton m = (ImageButton) findViewById(R.id.imageButton);
+                    m.setOnTouchListener(x);
+                    mDetector = new GestureDetectorCompat(x, x);
+                    // Set the gesture detector as the double tap
+                    // listener.
+                    mDetector.setOnDoubleTapListener(x);
+                } else {
+                    mTextView.setText("You have no tasks");
+                }
             }
         });
     }
@@ -61,7 +74,7 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
         Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
-        /*
+
         boolean result = false;
         float diffY = event2.getY() - event1.getY();
         float diffX = event2.getX() - event1.getX();
@@ -84,20 +97,26 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
             result = true;
         }
         return result;
-        */
-        return true;
+
     }
 
     public void onSwipeUp() {
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        Drawable myDrawable = getDrawable(R.drawable.water_peonies);
-        m.setImageDrawable(myDrawable);
+        if (taskIdx == tasksList.length-1) {
+            mTextView.setText("You have finished your tasks!");
+            taskFinished = true;
+        } else {
+            taskIdx++;
+            mTextView.setText(tasksList[taskIdx]);
+        }
     }
 
     public void onSwipeDown() {
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        Drawable myDrawable = getDrawable(R.drawable.water_roses);
-        m.setImageDrawable(myDrawable);
+        if (taskIdx != 0) {
+            if (!taskFinished) {
+                taskIdx--;
+            }
+            mTextView.setText(tasksList[taskIdx]);
+        }
     }
 
     public void onSwipeRight() {
@@ -132,9 +151,6 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
     @Override
     public boolean onDoubleTap(MotionEvent event) {
         Log.d(DEBUG_TAG, "onDoubleTap: " + event.toString());
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        Drawable myDrawable = getDrawable(R.drawable.water_roses);
-        m.setImageDrawable(myDrawable);
         return true;
     }
 
@@ -147,9 +163,6 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
         Log.d(DEBUG_TAG, "onSingleTapConfirmed: " + event.toString());
-        ImageButton m = (ImageButton) findViewById(R.id.imageButton);
-        Drawable myDrawable = getDrawable(R.drawable.water_peonies);
-        m.setImageDrawable(myDrawable);
         return true;
     }
 
