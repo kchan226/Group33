@@ -1,8 +1,14 @@
 package com.group33.greenthumb;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddPlantActivity extends Activity {
+public class AddPlantActivity extends AppCompatActivity {
 
     Plant plant;
     Boolean edit;
@@ -20,23 +26,66 @@ public class AddPlantActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plant);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
+        myToolbar.setOnMenuItemClickListener(
+                new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Handle menu item click event
+                        if (item.getTitle().equals("delete")) {
+                            new AlertDialog.Builder(AddPlantActivity.this)
+                                    .setMessage("Are you sure you want to delete " + plant.name + "?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            plant.delete();
+                                            Intent intent = new Intent();
+                                            setResult(RESULT_OK, intent);
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton("No", null)
+                                    .show();
+                        }
+                        return true;
+                    }
+                });
+
+
         final Spinner waterSpinner = (Spinner) findViewById(R.id.water_spinner);
         final Spinner compostSpinner = (Spinner) findViewById(R.id.compost_spinner);
 
+        String toolbarTitle;
         //if we're editing a plant
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String plantName = extras.getString("name");
             plant = Plant.getPlant(plantName);
             edit = true;
+            toolbarTitle = "Edit Plant";
         } else {
             edit = false;
+            toolbarTitle = "New Plant";
         }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(toolbarTitle);
+        }
+
 
         //if we're editing a plant
         if (plant != null) {
-            TextView title = (TextView) findViewById(R.id.addPlant);
-            title.setText("Edit Plant");
+//            TextView title = (TextView) findViewById(R.id.addPlant);
+//            title.setText("Edit Plant");
             TextView pName = (TextView) findViewById(R.id.plantName);
             pName.setText(plant.name);
             if (plant.waterFrequency > 0) {
@@ -94,6 +143,14 @@ public class AddPlantActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        if (edit) {
+            getMenuInflater().inflate(R.menu.edit_plant_menu, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     public Integer numberDays(Integer value, String unit) {

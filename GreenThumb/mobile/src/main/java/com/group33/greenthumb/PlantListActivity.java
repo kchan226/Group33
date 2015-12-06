@@ -1,11 +1,13 @@
 package com.group33.greenthumb;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
@@ -20,7 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlantListActivity extends ListActivity implements
+public class PlantListActivity extends AppCompatActivity implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener, View.OnTouchListener {
 
@@ -47,11 +49,13 @@ public class PlantListActivity extends ListActivity implements
         mDetector.setOnDoubleTapListener(this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.plant_listview, plantItems);
-        setListAdapter(adapter);
-        updatePlantList();
+//        setListAdapter(adapter);
 
-        ListView listView = getListView();
+
+        ListView listView = (ListView)findViewById(R.id.plantList);
+        listView.setAdapter(adapter);
         listView.setTextFilterEnabled(true);
+        updatePlantList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -62,8 +66,18 @@ public class PlantListActivity extends ListActivity implements
             }
         });
 
-        registerForContextMenu(getListView());
+        registerForContextMenu(listView);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Your Plants");
+        }
     }
 
     @Override
