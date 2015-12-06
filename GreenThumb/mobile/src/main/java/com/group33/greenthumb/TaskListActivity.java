@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+<<<<<<< Updated upstream
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -16,6 +17,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+=======
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+>>>>>>> Stashed changes
 
 /**
  * Created by Daniel on 12/1/2015.
@@ -36,6 +45,7 @@ public class TaskListActivity extends Activity {
             }
         });
 
+<<<<<<< Updated upstream
         Button deleteButton = (Button) findViewById(R.id.minus_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +65,11 @@ public class TaskListActivity extends Activity {
         });
 
         /*
+=======
+>>>>>>> Stashed changes
         ListView taskListView = (ListView) findViewById(R.id.taskListView);
 
-        String[] tasks = new String[] {"Water Roses", "Water Peonies", "Water Daisies", "Harvest Strawberries"};
+        String[] tasks = new String[] {"[Example Task]", "[Example Task]", "[Example Task]"};
         ArrayList<String> taskList = new ArrayList<String>();
         taskList.addAll(Arrays.asList(tasks));
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, taskList);
@@ -72,6 +84,33 @@ public class TaskListActivity extends Activity {
                 startActivity(intent);
             }
         });
+<<<<<<< Updated upstream
         */
+=======
+
+        Button deleteButton = (Button) findViewById(R.id.minus_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        //TODO: remove post-PROG03
+        Plant rose = Plant.getPlant("rose");
+        if (rose != null) {
+            Calendar past = rose.lastWatered;
+            Calendar rightNow = Calendar.getInstance();
+            long daysPassed = (past.getTimeInMillis() - rightNow.getTimeInMillis()) / (24 * 60 * 60 * 1000);
+
+            //for the sake of the demo, comment out the if statement
+//            if (daysPassed > rose.waterFrequency) {
+            TextView v = (TextView) findViewById(R.id.textView2);
+            v.setText("Water Roses");
+//            }
+        }
+
+>>>>>>> Stashed changes
     }
 }
