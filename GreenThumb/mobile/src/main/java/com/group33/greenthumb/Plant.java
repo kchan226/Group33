@@ -69,4 +69,11 @@ public class Plant extends Model {
                 .orderBy("Name ASC")
                 .execute();
     }
+
+    public static List<Plant> search(String searchTerm) {
+        return new Select().from(Plant.class)
+                .where("Name LIKE ?", new String[]{'%' + searchTerm + '%'})
+                .orderBy("Name ASC")
+                .execute();
+    }
 }

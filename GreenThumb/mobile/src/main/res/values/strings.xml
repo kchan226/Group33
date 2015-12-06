@@ -11,6 +11,7 @@
     <string name="title_activity_add_task">AddTaskActivity</string>
     <string name="title_activity_delete_task">DeleteTaskActivity</string>
     <string name="title_activity_edit_task">EditTaskActivity</string>
+    <string name="emptyPlantList">No plants in your list. Let\'s add some!</string>
     <string-array name="time_array">
         <item>Days</item>
         <item>Months</item>

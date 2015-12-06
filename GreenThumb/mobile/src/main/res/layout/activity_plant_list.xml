@@ -27,7 +27,7 @@
         android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No plants in your list. Let's add some!"
+        android:text="@string/emptyPlantList"
         android:gravity="center"
         android:visibility="gone"
         android:textStyle="italic"

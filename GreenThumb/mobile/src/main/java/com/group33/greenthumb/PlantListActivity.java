@@ -1,16 +1,21 @@
 package com.group33.greenthumb;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +33,9 @@ public class PlantListActivity extends AppCompatActivity implements
 
     String DEBUG_TAG = "Plant List";
     private GestureDetectorCompat mDetector;
+
+    private Menu mMenu;
+    private String curQuery = "";
 
     ArrayList<String> plantItems = new ArrayList<>();
 
@@ -55,7 +63,7 @@ public class PlantListActivity extends AppCompatActivity implements
         ListView listView = (ListView)findViewById(R.id.plantList);
         listView.setAdapter(adapter);
         listView.setTextFilterEnabled(true);
-        updatePlantList();
+        updatePlantList("");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -63,6 +71,7 @@ public class PlantListActivity extends AppCompatActivity implements
                 Intent i = new Intent(PlantListActivity.this, AddPlantActivity.class);
                 i.putExtra("name", ((TextView) view).getText().toString());
                 startActivityForResult(i, 1);
+                closeSearchView();
             }
         });
 
@@ -96,6 +105,7 @@ public class PlantListActivity extends AppCompatActivity implements
                 i = new Intent(PlantListActivity.this, AddPlantActivity.class);
                 i.putExtra("name", plantName);
                 startActivityForResult(i, 1);
+                closeSearchView();
                 break;
             case R.id.delete:
                 new AlertDialog.Builder(this)
@@ -107,7 +117,7 @@ public class PlantListActivity extends AppCompatActivity implements
                                 plant.delete();
 //                                plantItems.remove(index);
 //                                adapter.notifyDataSetChanged();
-                                updatePlantList();
+                                updatePlantList(curQuery);
                             }
                         })
                         .setNegativeButton("No", null)
@@ -121,6 +131,7 @@ public class PlantListActivity extends AppCompatActivity implements
     public void addItems(View v) {
         Intent i = new Intent(this, AddPlantActivity.class);
         startActivityForResult(i, 1);
+        closeSearchView();
     }
 
     @Override
@@ -133,14 +144,19 @@ public class PlantListActivity extends AppCompatActivity implements
                 // The Intent's data Uri identifies which contact was selected.
 
                 // Do something with the contact here (bigger example below)
-                updatePlantList();
+                updatePlantList("");
             }
         }
     }
 
-    protected void updatePlantList() {
+    protected void updatePlantList(String query) {
         plantItems.clear();
-        List<Plant> allPlants = Plant.getAllPlants();
+        List<Plant> allPlants;
+        if (query.isEmpty()) {
+            allPlants = Plant.getAllPlants();
+        } else {
+            allPlants = Plant.search(query);
+        }
         int size = allPlants.size();
         for (int i = 0; i < size; i++) {
             plantItems.add(allPlants.get(i).name);
@@ -148,11 +164,51 @@ public class PlantListActivity extends AppCompatActivity implements
         adapter.notifyDataSetChanged();
 
         TextView empty = (TextView)findViewById(R.id.empty);
+        if (query.isEmpty()) {
+            empty.setText(getResources().getString(R.string.emptyPlantList));
+        } else {
+            empty.setText("No plants match your search");
+        }
         if (plantItems.size() == 0) {
             empty.setVisibility(View.VISIBLE);
         } else {
             empty.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.mMenu = menu;
+        MenuInflater inflater = getMenuInflater();
+        // Inflate menu to add items to action bar if it is present.
+        inflater.inflate(R.menu.plant_search_menu, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.plantSearch).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String searchText = newText.trim();
+                updatePlantList(searchText);
+                curQuery = searchText;
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    private void closeSearchView() {
+        SearchView searchView = (SearchView) mMenu.findItem(R.id.plantSearch).getActionView();
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
     }
 
     @Override
