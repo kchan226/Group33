@@ -3,19 +3,11 @@ package com.group33.greenthumb;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  * Created by Daniel on 12/1/2015.
@@ -63,6 +55,24 @@ public class TaskListActivity extends Activity {
             }
         });
 
+
+            }
+        });
+        
+
+        //TODO: remove post-PROG03
+        Plant rose = Plant.getPlant("rose");
+        if (rose != null) {
+            Calendar past = rose.lastWatered;
+            Calendar rightNow = Calendar.getInstance();
+            long daysPassed = (past.getTimeInMillis() - rightNow.getTimeInMillis()) / (24 * 60 * 60 * 1000);
+
+            //for the sake of the demo, comment out the if statement
+//            if (daysPassed > rose.waterFrequency) {
+            TextView v = (TextView) findViewById(R.id.textView2);
+            v.setText("Water Roses");
+//            }
+        }
 
     }
 }

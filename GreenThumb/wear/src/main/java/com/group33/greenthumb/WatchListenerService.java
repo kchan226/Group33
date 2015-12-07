@@ -21,6 +21,9 @@ public class WatchListenerService extends WearableListenerService {
             Intent it = new Intent(getBaseContext(), WatchHome.class);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            //it.putExtra("tasks", messageEvent.getPath());
+            it.putExtra("tasks", "Water the Roses%Change the Soil%Trim the branches");
+            it.putExtra("syncToWear", true);
             startActivity(it);
 
         } else {
