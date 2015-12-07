@@ -22,56 +22,47 @@ import java.util.Arrays;
  */
 public class TaskListActivity extends Activity {
 
+    ArrayList<String> taskList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+
+        Button deleteButton = (Button) findViewById(R.id.minus_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Button addButton = (Button) findViewById(R.id.plus_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(TaskListActivity.this, AddTaskActivity.class);
+                myIntent.putExtra("taskList", taskList);
                 TaskListActivity.this.startActivity(myIntent);
             }
         });
 
-        Button deleteButton = (Button) findViewById(R.id.minus_button);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(TaskListActivity.this, DeleteTaskActivity.class);
-                TaskListActivity.this.startActivity(myIntent);
-            }
-        });
-
-        Button editButton = (Button) findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(TaskListActivity.this, EditTaskActivity.class);
-                TaskListActivity.this.startActivity(myIntent);
-            }
-        });
-
-        /*
         ListView taskListView = (ListView) findViewById(R.id.taskListView);
 
-        String[] tasks = new String[] {"Water Roses", "Water Peonies", "Water Daisies", "Harvest Strawberries"};
-        ArrayList<String> taskList = new ArrayList<String>();
+        String[] tasks = new String[] {"[Example Task], [Example Task], [Example Task]"};
+        taskList = new ArrayList<String>();
         taskList.addAll(Arrays.asList(tasks));
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, taskList);
 
         //listAdapter.add("task");
-        taskListView.setAdapter( listAdapter );
+        taskListView.setAdapter(listAdapter);
 
         taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TaskListActivity.this, EditTaskActivity.class);
-                intent.putExtra("task", tasks[position]);
-                startActivity(intent);
+
             }
         });
-        */
+
+
     }
 }
