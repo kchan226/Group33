@@ -57,12 +57,10 @@
 
         <activity
             android:name=".TaskListActivity"
-            android:label="@string/title_activity_task_list"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:label="@string/title_activity_task_list"/>
         <activity
             android:name=".AddTaskActivity"
-            android:label="@string/title_activity_add_task"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+            android:label="@string/title_activity_add_task"/>
     </application>
 
 </manifest>
