@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.group33.greenthumb.AddPlantActivity">
+
+    <item android:id="@+id/delete"
+        android:title="delete"
+        android:icon="@mipmap/ic_delete_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+</menu>
