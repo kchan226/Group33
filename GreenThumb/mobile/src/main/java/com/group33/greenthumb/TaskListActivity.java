@@ -8,11 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 /**
  * Created by Daniel on 12/1/2015.
@@ -59,20 +57,6 @@ public class TaskListActivity extends Activity {
 
             }
         });
-
-        //TODO: remove post-PROG03
-        Plant rose = Plant.getPlant("rose");
-        if (rose != null) {
-            Calendar past = rose.lastWatered;
-            Calendar rightNow = Calendar.getInstance();
-            long daysPassed = (past.getTimeInMillis() - rightNow.getTimeInMillis()) / (24 * 60 * 60 * 1000);
-
-            //for the sake of the demo, comment out the if statement
-//            if (daysPassed > rose.waterFrequency) {
-            TextView v = (TextView) findViewById(R.id.textView2);
-            v.setText("Water Roses");
-//            }
-        }
 
     }
 }
