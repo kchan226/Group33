@@ -14,10 +14,12 @@ import android.widget.TextView;
 public class WatchHome extends Activity {
 
     private TextView mTextView;
+    public static Activity finishActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        finishActivity = this;
         setContentView(R.layout.activity_watch_home);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
@@ -46,6 +48,13 @@ public class WatchHome extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 0) {
+            finish();
+        }
     }
 
 
