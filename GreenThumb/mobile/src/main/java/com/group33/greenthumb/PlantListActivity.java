@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +119,7 @@ public class PlantListActivity extends AppCompatActivity implements
 //                                plantItems.remove(index);
 //                                adapter.notifyDataSetChanged();
                                 updatePlantList(curQuery);
+                                Toast.makeText(getApplicationContext(), "Deleted " + plantName, Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("No", null)
