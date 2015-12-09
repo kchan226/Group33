@@ -75,9 +75,9 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
                     @Override
                     public void onClick(View v) {
                         Intent myIntent = new Intent(x, WatchHome.class);
-                        WatchHome.finishActivity.finish();
                         finish();
                         startActivity(myIntent);
+                        WatchHome.finishActivity.finish();
                     }
                 });
 
@@ -98,7 +98,20 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
                     tasksList = tasksStr.split("%");
 
                     mTextView.setText(tasksList[taskIdx]);
+                    ImageView icons =  (ImageView) findViewById(R.id.iconsView);
 
+                    Drawable myDrawable;
+                    if (tasksList[taskIdx].toLowerCase().contains("water")) {
+                        myDrawable = getDrawable(R.drawable.water);
+                    } else if (tasksList[taskIdx].toLowerCase().contains("compost")) {
+                        myDrawable = getDrawable(R.drawable.compost);
+                    } else if (tasksList[taskIdx].toLowerCase().contains("harvest")) {
+                        myDrawable = getDrawable(R.drawable.harvest);
+                    } else {
+                        myDrawable = null;
+                    }
+
+                    icons.setImageDrawable(myDrawable);
 
                     ImageButton m = (ImageButton) findViewById(R.id.imageButton);
                     m.setOnTouchListener(x);
@@ -108,6 +121,8 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
                     mDetector.setOnDoubleTapListener(x);
                 } else {
                     mTextView.setText("You have no tasks");
+                    ImageView icons =  (ImageView) findViewById(R.id.iconsView);
+                    icons.setImageDrawable(null);
                 }
             }
         });
@@ -162,9 +177,26 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
             taskFinished = true;
             backButton.setVisibility(View.VISIBLE);
             exitButton.setVisibility(View.VISIBLE);
+
+            ImageView icons =  (ImageView) findViewById(R.id.iconsView);
+            icons.setImageDrawable(null);
         } else {
             taskIdx++;
             mTextView.setText(tasksList[taskIdx]);
+            ImageView icons =  (ImageView) findViewById(R.id.iconsView);
+
+            Drawable myDrawable;
+            if (tasksList[taskIdx].toLowerCase().contains("water")) {
+                myDrawable = getDrawable(R.drawable.water);
+            } else if (tasksList[taskIdx].toLowerCase().contains("compost")) {
+                myDrawable = getDrawable(R.drawable.compost);
+            } else if (tasksList[taskIdx].toLowerCase().contains("harvest")) {
+                myDrawable = getDrawable(R.drawable.harvest);
+            } else {
+                myDrawable = getDrawable(R.drawable.other);
+            }
+
+            icons.setImageDrawable(myDrawable);
         }
     }
 
@@ -178,6 +210,21 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
             mTextView.setText(tasksList[taskIdx]);
             backButton.setVisibility(View.INVISIBLE);
             exitButton.setVisibility(View.INVISIBLE);
+
+            ImageView icons =  (ImageView) findViewById(R.id.iconsView);
+
+            Drawable myDrawable;
+            if (tasksList[taskIdx].toLowerCase().contains("water")) {
+                myDrawable = getDrawable(R.drawable.water);
+            } else if (tasksList[taskIdx].toLowerCase().contains("compost")) {
+                myDrawable = getDrawable(R.drawable.compost);
+            } else if (tasksList[taskIdx].toLowerCase().contains("harvest")) {
+                myDrawable = getDrawable(R.drawable.harvest);
+            } else {
+                myDrawable = getDrawable(R.drawable.other);
+            }
+
+            icons.setImageDrawable(myDrawable);
         }
     }
 
@@ -304,6 +351,21 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
                 } else {
                     taskIdx++;
                     mTextView.setText(tasksList[taskIdx]);
+
+                    ImageView icons =  (ImageView) findViewById(R.id.iconsView);
+
+                    Drawable myDrawable;
+                    if (tasksList[taskIdx].toLowerCase().contains("water")) {
+                        myDrawable = getDrawable(R.drawable.water);
+                    } else if (tasksList[taskIdx].toLowerCase().contains("compost")) {
+                        myDrawable = getDrawable(R.drawable.compost);
+                    } else if (tasksList[taskIdx].toLowerCase().contains("harvest")) {
+                        myDrawable = getDrawable(R.drawable.harvest);
+                    } else {
+                        myDrawable = getDrawable(R.drawable.other);
+                    }
+
+                    icons.setImageDrawable(myDrawable);
                 }
             }
             else {
