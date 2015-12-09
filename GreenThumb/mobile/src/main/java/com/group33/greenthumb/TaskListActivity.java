@@ -83,7 +83,7 @@ public class TaskListActivity extends AppCompatActivity implements
                 temp.lastWatered = now;
 
                 //set this to temp.waterFrequency-1 to test autogeneration
-            } else if ((temp.lastWatered.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.waterFrequency-1) {
+            } else if ((temp.lastWatered.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.waterFrequency) {
                 String newTaskName = "Water " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {
@@ -94,7 +94,7 @@ public class TaskListActivity extends AppCompatActivity implements
             }
             if (temp.lastHarvested == null) {
                 temp.lastHarvested = now;
-            } else if ((temp.lastHarvested.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.harvestFrequency-1) {
+            } else if ((temp.lastHarvested.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.harvestFrequency) {
                 String newTaskName = "Harvest " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {
@@ -105,7 +105,7 @@ public class TaskListActivity extends AppCompatActivity implements
             }
             if (temp.lastComposted == null) {
                 temp.lastComposted = now;
-            } else if ((temp.lastComposted.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.compostFrequency-1) {
+            } else if ((temp.lastComposted.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.compostFrequency) {
                 String newTaskName = "Compost " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {
