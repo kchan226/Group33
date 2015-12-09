@@ -146,7 +146,7 @@ public class AddPlantActivity extends AppCompatActivity {
                     compost = numberDays(Integer.parseInt(inputCompost), compostSpinner.getSelectedItem().toString());
                 }
                 if (!inputHarvest.isEmpty()) {
-                    harvest = numberDays(Integer.parseInt(inputCompost), harvestSpinner.getSelectedItem().toString());
+                    harvest = numberDays(Integer.parseInt(inputHarvest), harvestSpinner.getSelectedItem().toString());
                 }
                 if (!inputpH.isEmpty()) {
                     pH = Double.parseDouble(inputpH);
