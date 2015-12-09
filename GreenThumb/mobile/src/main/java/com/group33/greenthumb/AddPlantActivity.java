@@ -141,18 +141,38 @@ public class AddPlantActivity extends AppCompatActivity {
                 }
                 if (!inputWater.isEmpty()) {
                     water = numberDays(Integer.parseInt(inputWater), waterSpinner.getSelectedItem().toString());
+                    if (water < 0) {
+                        Toast.makeText(getApplicationContext(), "Watering frequency cannot be negative", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (!inputCompost.isEmpty()) {
                     compost = numberDays(Integer.parseInt(inputCompost), compostSpinner.getSelectedItem().toString());
+                    if (compost < 0) {
+                        Toast.makeText(getApplicationContext(), "Composting frequency cannot be negative", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (!inputHarvest.isEmpty()) {
                     harvest = numberDays(Integer.parseInt(inputCompost), harvestSpinner.getSelectedItem().toString());
+                    if (harvest < 0) {
+                        Toast.makeText(getApplicationContext(), "Harvesting frequency cannot be negative", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (!inputpH.isEmpty()) {
                     pH = Double.parseDouble(inputpH);
+                    if (pH < 0.0 || pH > 14.0) {
+                        Toast.makeText(getApplicationContext(), "pH values must be between 0 and 14", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (!inputDepth.isEmpty()) {
                     sowDepth = Double.parseDouble(inputDepth);
+                    if (sowDepth < 0.0) {
+                        Toast.makeText(getApplicationContext(), "Sow depth cannot be a negative value", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
                 Plant tempPlant = Plant.getPlant(inputName);
