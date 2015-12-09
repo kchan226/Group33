@@ -25,7 +25,7 @@ import android.widget.TextView;
 public class ViewTasksActivity extends Activity implements   GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener, View.OnTouchListener, SensorEventListener {
 
-    private static final double SHAKE_THRESHOLD = 1.1f;
+    private static final double SHAKE_THRESHOLD = 1.8f;
     private static final int SHAKE_WAIT_TIME_MS = 250;
     private static final double ROTATION_THRESHOLD = 2.0f;
     private static final int ROTATION_WAIT_TIME_MS = 100;

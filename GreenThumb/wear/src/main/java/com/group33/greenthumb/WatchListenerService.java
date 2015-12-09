@@ -4,6 +4,7 @@ package com.group33.greenthumb;
  * Created by dzhang on 12/1/15.
  */
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -21,14 +22,12 @@ public class WatchListenerService extends WearableListenerService {
             Intent it = new Intent(getBaseContext(), WatchHome.class);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            //it.putExtra("tasks", messageEvent.getPath());
-            it.putExtra("tasks", "Water the Roses%Change the Soil%Trim the branches");
+            //byte[] bytes = messageEvent.getData();
+            //it.putExtra("tasks", messageEvent.getData());
+            it.putExtra("tasks", new String(messageEvent.getData()));
             it.putExtra("syncToWear", true);
             startActivity(it);
 
-        } else {
         }
-
     }
-
 }

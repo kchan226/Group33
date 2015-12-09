@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,9 @@ import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class HomeScreen extends Activity {
 
@@ -75,8 +79,34 @@ public class HomeScreen extends Activity {
             @Override
             public void onClick(View v) {
                 mApiClient.connect();
-                sendMessage(START_ACTIVITY, "here");
-
+                Calendar now = Calendar.getInstance();
+                String tasks = "";
+                List<Task> allTasks = Task.getAllTasks();
+                int size = allTasks.size();
+                for (int i = 0; i < size; i++) {
+                    Task tempTask = allTasks.get(i);
+                    tasks += tempTask.name+"%";
+                    Log.d("type", ""+tempTask.type);
+                    if (tempTask.type == Task.WATER) {
+                        Plant searchPlant = Plant.getPlant(tempTask.name.substring(6, tempTask.name.length()));
+                        if (searchPlant != null) {
+                            searchPlant.lastWatered = now;
+                            Log.d("watering updated!", "watering updated!");
+                        }
+                    } else if (tempTask.type == Task.HARVEST) {
+                        Plant searchPlant = Plant.getPlant(tempTask.name.substring(8, tempTask.name.length()));
+                        if (searchPlant != null) {
+                            searchPlant.lastHarvested= now;
+                        }
+                    } else if (tempTask.type == Task.COMPOST) {
+                        Plant searchPlant = Plant.getPlant(tempTask.name.substring(8, tempTask.name.length()));
+                        if (searchPlant != null) {
+                            searchPlant.lastComposted= now;
+                        }
+                    }
+                    tempTask.delete();
+                }
+                sendMessage(START_ACTIVITY, tasks);
             }
         });
     }
