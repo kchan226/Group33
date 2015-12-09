@@ -154,7 +154,7 @@ public class AddPlantActivity extends AppCompatActivity {
                     }
                 }
                 if (!inputHarvest.isEmpty()) {
-                    harvest = numberDays(Integer.parseInt(inputCompost), harvestSpinner.getSelectedItem().toString());
+                    harvest = numberDays(Integer.parseInt(inputHarvest), harvestSpinner.getSelectedItem().toString());
                     if (harvest < 0) {
                         Toast.makeText(getApplicationContext(), "Harvesting frequency cannot be negative", Toast.LENGTH_SHORT).show();
                         return;
