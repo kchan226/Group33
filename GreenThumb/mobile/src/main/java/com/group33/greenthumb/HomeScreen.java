@@ -86,12 +86,10 @@ public class HomeScreen extends Activity {
                 for (int i = 0; i < size; i++) {
                     Task tempTask = allTasks.get(i);
                     tasks += tempTask.name+"%";
-                    Log.d("type", ""+tempTask.type);
                     if (tempTask.type == Task.WATER) {
                         Plant searchPlant = Plant.getPlant(tempTask.name.substring(6, tempTask.name.length()));
                         if (searchPlant != null) {
                             searchPlant.lastWatered = now;
-                            Log.d("watering updated!", "watering updated!");
                         }
                     } else if (tempTask.type == Task.HARVEST) {
                         Plant searchPlant = Plant.getPlant(tempTask.name.substring(8, tempTask.name.length()));

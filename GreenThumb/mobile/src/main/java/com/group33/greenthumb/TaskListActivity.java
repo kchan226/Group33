@@ -79,10 +79,11 @@ public class TaskListActivity extends AppCompatActivity implements
         long rightNow = now.getTimeInMillis();
         for (int i = 0; i < size; i++) {
             Plant temp = allPlants.get(i);
-            Log.d(temp.name, ""+temp.waterFrequency);
             if (temp.lastWatered == null) {
                 temp.lastWatered = now;
-            } else if ((temp.lastWatered.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.waterFrequency) {
+
+                //set this to temp.waterFrequency-1 to test autogeneration
+            } else if ((temp.lastWatered.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.waterFrequency-1) {
                 String newTaskName = "Water " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {
@@ -93,7 +94,7 @@ public class TaskListActivity extends AppCompatActivity implements
             }
             if (temp.lastHarvested == null) {
                 temp.lastHarvested = now;
-            } else if ((temp.lastHarvested.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.harvestFrequency) {
+            } else if ((temp.lastHarvested.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.harvestFrequency-1) {
                 String newTaskName = "Harvest " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {
@@ -104,7 +105,7 @@ public class TaskListActivity extends AppCompatActivity implements
             }
             if (temp.lastComposted == null) {
                 temp.lastComposted = now;
-            } else if ((temp.lastComposted.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.compostFrequency) {
+            } else if ((temp.lastComposted.getTimeInMillis() - rightNow) / (24 * 60 * 60 * 1000) >= temp.compostFrequency-1) {
                 String newTaskName = "Compost " + temp.name;
                 Task tempTask = Task.getTask(newTaskName);
                 if (tempTask == null) {

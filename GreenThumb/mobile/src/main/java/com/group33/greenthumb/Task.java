@@ -14,7 +14,9 @@ public class Task extends Model {
 
     @Column(name = "Name")
     public String name;
+    @Column(name = "Type")
     public int type;
+
     public static final int OTHER = 0;
     public static final int WATER = 1;
     public static final int HARVEST = 2;
@@ -38,7 +40,7 @@ public class Task extends Model {
     }
 
     public static List<Task> getAllTasks() {
-        return new Select(new String[]{"Id, Name"})
+        return new Select()
                 .from(Task.class)
                 .orderBy("Name ASC")
                 .execute();

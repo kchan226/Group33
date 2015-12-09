@@ -64,7 +64,8 @@ public class Plant extends Model {
     }
 
     public static List<Plant> getAllPlants() {
-        return new Select(new String[]{"Id, Name"})
+        //return new Select(new String[]{"Id, Name"})
+        return new Select()
                 .from(Plant.class)
                 .orderBy("Name ASC")
                 .execute();
