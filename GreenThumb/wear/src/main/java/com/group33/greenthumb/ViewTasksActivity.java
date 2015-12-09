@@ -70,7 +70,26 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 backButton = (Button) findViewById(R.id.back_button);
+                backButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(x, WatchHome.class);
+                        WatchHome.finishActivity.finish();
+                        finish();
+                        startActivity(myIntent);
+                    }
+                });
+
                 exitButton = (Button) findViewById(R.id.exit_button);
+                exitButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                        WatchHome.finishActivity.finish();
+                    }
+                });
 
                 mTextView = (TextView)findViewById(R.id.textView);
                 receivedIntent = getIntent();
@@ -151,9 +170,11 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
 
     public void onSwipeDown() {
         if (taskIdx != 0) {
-            if (!taskFinished) {
-                taskIdx--;
+            if (taskFinished) {
+                taskIdx++;
             }
+            taskIdx--;
+            taskFinished = false;
             mTextView.setText(tasksList[taskIdx]);
             backButton.setVisibility(View.INVISIBLE);
             exitButton.setVisibility(View.INVISIBLE);
@@ -278,6 +299,8 @@ public class ViewTasksActivity extends Activity implements   GestureDetector.OnG
                 if (taskIdx == tasksList.length-1) {
                     mTextView.setText("You have finished your tasks!");
                     taskFinished = true;
+                    backButton.setVisibility(View.VISIBLE);
+                    exitButton.setVisibility(View.VISIBLE);
                 } else {
                     taskIdx++;
                     mTextView.setText(tasksList[taskIdx]);

@@ -3,6 +3,7 @@ package com.group33.greenthumb;
 /**
  * Created by dzhang on 12/1/15.
  */
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -20,6 +21,7 @@ public class WatchListenerService extends WearableListenerService {
         if( messageEvent.getPath().equalsIgnoreCase( START_ACTIVITY ) ) {
 
             Intent it = new Intent(getBaseContext(), WatchHome.class);
+            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             //byte[] bytes = messageEvent.getData();

@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+<<<<<<< HEAD
 import android.widget.TextView;
 import android.widget.Toast;
 
